@@ -1,27 +1,47 @@
 package algo;
 
 public class BinarySearch {
-    public static void main(String[] args) {
-        int[] array = {3,5,6,9,12,19,25};
 
-        System.out.println(binarySearch(array, 19));
-    }
-
-    private static int binarySearch(int[] array, int x) {
-        int mid = -1;
+    /**
+     * Binary search iterative method
+     *
+     * @param array
+     * @param x
+     * @return
+     */
+    public int binarySearch(int[] array, int x) {
+        int mid;
         int low = 0;
-        int high = array.length-1;
-        boolean isLoop = true;
+        int max = array.length - 1;
         do {
-            mid = low+high/2;
+            mid = (low + max) / 2;
             if (array[mid] > x) {
-                high = mid - 1;
+                max = mid - 1;
             } else if (array[mid] < x) {
                 low = mid + 1;
             } else {
                 break;
             }
-        } while (isLoop);
+        } while (true);
         return mid;
+    }
+
+    /**
+     * Binary search recursive method
+     * @param array
+     * @param x
+     * @param low
+     * @param max
+     * @return
+     */
+    public int binarySearchRec(int[] array, int x, int low, int max) {
+        int mid = (low + max) / 2;
+        if (array[mid] < x) {
+            return binarySearchRec(array, x, mid + 1, max);
+        } else if (array[mid] > x) {
+            return binarySearchRec(array, x, low, mid - 1);
+        } else {
+            return mid;
+        }
     }
 }
